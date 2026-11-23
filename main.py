@@ -34,12 +34,17 @@ def resolve_output_dir() -> Path:
     return Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "output"))
 
 
+def write_entry(text: str, out_dir: Path) -> None:
+    """Write text to entry.txt inside out_dir, with no trailing newline."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "entry.txt").write_text(text, encoding="utf-8")
+
+
 def main() -> None:
     """Write the joke, with no trailing newline, to entry.txt."""
     validate(LINE)
     out_dir = resolve_output_dir()
-    out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "entry.txt").write_text(LINE, encoding="utf-8")
+    write_entry(LINE, out_dir)
 
 
 if __name__ == "__main__":
