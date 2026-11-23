@@ -34,10 +34,15 @@ def resolve_output_dir() -> Path:
     return Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "output"))
 
 
+def get_entry_path(out_dir: Path) -> Path:
+    """Return the entry file path inside out_dir."""
+    return out_dir / "entry.txt"
+
+
 def write_entry(text: str, out_dir: Path) -> None:
     """Write text to entry.txt inside out_dir, with no trailing newline."""
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "entry.txt").write_text(text, encoding="utf-8")
+    get_entry_path(out_dir).write_text(text, encoding="utf-8")
 
 
 def main() -> None:
